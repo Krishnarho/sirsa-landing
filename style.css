@@ -23,21 +23,15 @@ section {
     background-color: hsl(0, 0%, 0%);
     display: grid;
     place-items: center;
-    /* grid-template-areas: "spline"; */
-    /* position: relative; */
+    position: relative;
 
     > * {
         grid-area: 1/1;
     }
 
-    /* .spline {
-        position: absolute;
-        right: -1%;
-    } */
-
     .links {
         place-self: center;
-        display: grid;
+        display: none;
         gap: 2rem;
 
         .link {
@@ -61,5 +55,79 @@ section {
             justify-content: center;
             align-items: center;
         }
+    }
+}
+
+.loading-screen {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    pointer-events: none;
+    background: transparent;
+    opacity: 1;
+    visibility: visible;
+    transition:
+        opacity 500ms ease,
+        visibility 500ms ease;
+}
+
+.loading-quote {
+    max-width: 90%;
+    color: hsl(60, 56%, 91%);
+    font-size: clamp(1.5rem, 4vw, 4rem);
+    font-weight: 600;
+    text-shadow: 0 2px 20px hsla(0, 0%, 0%, 0.65);
+}
+
+.loading-quote span:not(.sr-only) {
+    display: inline-block;
+    opacity: 0;
+    animation: reveal-letter 300ms forwards;
+    animation-delay: var(--letter-delay);
+}
+
+section.is-loaded .loading-screen {
+    opacity: 0;
+    visibility: hidden;
+}
+
+section.is-loaded iframe {
+    opacity: 1;
+}
+
+section.is-loaded .links {
+    display: grid;
+}
+
+iframe {
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 500ms ease;
+}
+
+.links {
+    z-index: 3;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+@keyframes reveal-letter {
+    from {
+        opacity: 0;
+        transform: translateY(0.15em);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
