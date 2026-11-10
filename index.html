@@ -105,11 +105,12 @@
             });
 
             function showLanding() {
-                landing.classList.add("is-loaded");
+                setTimeout(() => {
+                    landing.classList.add("is-loaded");
+                }, 3000);
             }
 
-            //iframe.addEventListener("load", showLanding);
-            setTimeout(showLanding, 3000); // Prevent the loader remaining forever.
+            iframe.addEventListener("load", showLanding);
         </script>
     </body>
 </html>
